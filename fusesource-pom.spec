@@ -1,9 +1,9 @@
 %{?_javapackages_macros:%_javapackages_macros}
 Name:             fusesource-pom
 Version:          1.9
-Release:          5.0%{?dist}
+Release:          9.0
 Summary:          Parent POM for FuseSource Maven projects
-
+Group:            Development/Java
 License:          ASL 2.0
 URL:              http://fusesource.com/
 Source0:          http://repo1.maven.org/maven2/org/fusesource/fusesource-pom/%{version}/fusesource-pom-%{version}.pom
@@ -11,18 +11,7 @@ Source1:          http://www.apache.org/licenses/LICENSE-2.0.txt
 
 BuildArch:        noarch
 
-BuildRequires:    jpackage-utils
-BuildRequires:    java
 BuildRequires:    maven-local
-BuildRequires:    maven-install-plugin
-BuildRequires:    maven-javadoc-plugin
-BuildRequires:    maven-release-plugin
-BuildRequires:    maven-resources-plugin
-BuildRequires:    maven-enforcer-plugin
-
-Requires:         maven
-Requires:         java
-Requires:         jpackage-utils
 
 %description
 This is a shared POM parent for FuseSource Maven projects
@@ -37,20 +26,13 @@ cp -p %{SOURCE1} LICENSE
 %pom_xpath_remove "pom:extension[pom:artifactId[text()='wagon-webdav-jackrabbit']]"
 
 %build
-mvn-rpmbuild install
+%mvn_build
 
 %install
-# POM
-install -d -m 755 $RPM_BUILD_ROOT%{_mavenpomdir}
-install -pm 644 pom.xml $RPM_BUILD_ROOT%{_mavenpomdir}/JPP-%{name}.pom
+%mvn_install
 
-# DEPMAP
-%add_maven_depmap JPP-%{name}.pom
-
-%files
+%files -f .mfiles
 %doc LICENSE
-%{_mavenpomdir}/JPP-%{name}.pom
-%{_mavendepmapfragdir}/%{name}
 
 %changelog
 * Sat Aug 03 2013 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 1.9-5
