@@ -1,7 +1,7 @@
 %{?_javapackages_macros:%_javapackages_macros}
 Name:             fusesource-pom
 Version:          1.9
-Release:          9.0
+Release:          9.1
 Summary:          Parent POM for FuseSource Maven projects
 Group:            Development/Java
 License:          ASL 2.0
