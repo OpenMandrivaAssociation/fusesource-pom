@@ -13,20 +13,14 @@ BuildArch:        noarch
 BuildRequires:	maven
 BuildRequires:	java-current-devel
 BuildSystem:	maven
+BuildOption:	validate
 
-
-BuildRequires:	javapackages-tools
 %description
 This is a shared POM parent for FuseSource Maven projects
 
 %prep
 cp %{SOURCE0} pom.xml
 cp -p %{SOURCE1} LICENSE
-
-%pom_remove_plugin :clirr-maven-plugin
-
-# WebDAV wagon is not available in Fedora.
-%pom_xpath_remove "pom:extension[pom:artifactId[text()='wagon-webdav-jackrabbit']]"
 
 %files -f .mfiles
 %doc LICENSE
